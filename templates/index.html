@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Клуб будующего</title>
+    <style>
+        body {
+            font-size: 33px;
+            background: pink;
+            color: brown,
+             
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Список мероприятий клуба будущего</h1>
+    <a href="/events/new">Добавить мероприятие</a>
+    <p>Выберите и запишитесь на интересное для вас мероприятие</p>
+
+    <table border="1">
+        <tr>
+            <th>Num:</th>
+            <th>Мероприятие</th>
+            <th>Свободные места</th>
+        </tr>
+        {% for event in events %}
+        <tr>
+            <td>{{ event["id"] }}</td>
+            <td>{{ event["title"] }}</td>
+            <td>{{ event["seats"] }}</td>
+            <td>{{ event["status"] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+
+</body>
+
+
+
+</html>
