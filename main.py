@@ -35,11 +35,9 @@ events = [
     }
 ]
 
-class CreateEvent(BaseModel):
-    id: int
+class EventCreate(BaseModel):
     title: str
     seats: int = Field(ge=0) #больше или равно 0
-    status: str
 
 class Event(BaseModel):
     id: int
@@ -47,13 +45,13 @@ class Event(BaseModel):
     seats: int
     status: str
 
-@app.post("/api/events", response_model=CreateEvent, status_code=201)
-def create_event(title: str, seats: int):
+@app.post("/api/events", response_model=Event, status_code=201)
+def create_event_swagger(data_event: EventCreate):
     new_event = {
         "id": len(events) + 1,
-        "title": title,
-        "seats": seats,
-        "status": "Открыта" if seats > 0 else "Регистрация завершена"
+        "title": data_event.title,
+        "seats": data_event.seats,
+        "status": "Открыта" if data_event.seats > 0 else "Регистрация завершена"
     }
     events.append(new_event)
     return new_event
@@ -89,7 +87,7 @@ def return_add_form(request: Request):
     )    
 
 @app.post("/events/new")
-def create_event(title: str = Form(), seats: int = Form()):
+def create_event_ui(title: str = Form(), seats: int = Form()):
     new_event = {
         "id": len(events) + 1,
         "title": title,
